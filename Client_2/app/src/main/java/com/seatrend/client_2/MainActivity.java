@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 if (mBond) {
                     Message msg = Message.obtain();
                     msg.what = MSG_FROM_CLIENT;
-                    msg.replyTo = aMessenger;
+                    msg.replyTo = clientMessenger;
 //                    clientMessage.obj = edit.getText().toString();  //java.lang.RuntimeException: Can't marshal non-Parcelable objects across processes.
                     Bundle data = new Bundle();
                     data.putString("client_msg", edit.getText().toString());
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @SuppressLint("HandlerLeak")
-    private Messenger aMessenger = new Messenger(new Handler() {
+    private Messenger clientMessenger = new Messenger(new Handler() {
         @Override
         public void handleMessage(final Message msg) {
             super.handleMessage(msg);
