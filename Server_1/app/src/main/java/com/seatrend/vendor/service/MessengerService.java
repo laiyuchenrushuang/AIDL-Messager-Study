@@ -20,6 +20,7 @@ public class MessengerService extends Service {
 
     private final int MSG_FROM_CLIENT = 0x01;
     private final int FROM_SERVER = 0x02;
+    Messenger clientMessenger;
     @SuppressLint("HandlerLeak")
     private Messenger mMessenger = new Messenger(new Handler() {
 
@@ -31,10 +32,10 @@ public class MessengerService extends Service {
                     showLog("CLIENT");
 
                     Message m = Message.obtain();
-                    Messenger clientMessenger = msg.replyTo;
+                    clientMessenger = msg.replyTo;
                     String clientMsg = msg.getData().getString("client_msg");
                     Bundle data = new Bundle();
-                    data.putString("server_msg","来自服务器的消息,收到：" + clientMsg);
+                    data.putString("server_msg", "来自服务器的消息,收到：" + clientMsg);
                     m.what = FROM_SERVER;
                     m.setData(data);
 
@@ -59,7 +60,27 @@ public class MessengerService extends Service {
     }
 
 
+    //服务器向client 发送数据
+    public void sendMsgToClient(String strS) {
+        //不行的方案
+//        Message m = Message.obtain();
+//
+//        String clientMsg = strS; //服务器我嗨哟
+//        Bundle data = new Bundle();
+//        data.putString("server_msg", "来自服务器的消息,send：" + clientMsg);
+//        m.what = FROM_SERVER;
+//        m.setData(data);
+//
+//        try {
+//            clientMessenger.send(m);
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        }
+
+    }
+
+
     public void showLog(String msg) {
-        Log.e("lylog", "-----------" + msg + "-----------");
+        Log.d("lylog", "-----------" + msg + "-----------");
     }
 }
